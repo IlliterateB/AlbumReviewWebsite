@@ -1,0 +1,271 @@
+:root {
+  color-scheme: dark;
+  --bg: #111;
+  --panel: rgba(12, 12, 12, 0.9);
+  --card: rgba(255, 255, 255, 0.08);
+  --text: #f3f3f3;
+  --muted: #bdbdbd;
+  --accent: #1db954;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.album-background {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.1);
+  filter: blur(28px) saturate(1.2);
+  z-index: -3;
+}
+
+.page-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -2;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(8px);
+}
+
+.site-header a {
+  color: #fff;
+}
+
+.main-content {
+  padding: 20px;
+  padding-bottom: 120px;
+}
+
+.album-view {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 14px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+}
+
+.album-cover-link img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+.meta-sections {
+  display: grid;
+  gap: 10px;
+}
+
+.section-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.song-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.song-table td {
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.album-slider {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  display: flex;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.75);
+  overflow-x: auto;
+  z-index: 5;
+}
+
+.slider-segment {
+  min-width: 110px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+.slider-segment.active {
+  border-color: var(--accent);
+}
+
+.hover-preview {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 220px;
+  background: #161616;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.hover-preview img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.slider-segment:hover .hover-preview {
+  display: block;
+}
+
+.message-toggle {
+  position: fixed;
+  right: 14px;
+  top: 40%;
+  z-index: 10;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.message-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(390px, 100%);
+  height: 100vh;
+  background: var(--panel);
+  padding: 16px;
+  z-index: 20;
+  overflow-y: auto;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.message-panel.hidden {
+  display: none;
+}
+
+.panel-close {
+  float: right;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+button.primary {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.recommendations-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 420px) 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+.recommend-search-results,
+#recommend-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.recommend-result,
+.recommend-entry {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.recommend-result img,
+.recommend-entry img {
+  width: 60px;
+  border-radius: 6px;
+}
+
+.recommend-bar-wrap {
+  width: 180px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.recommend-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: rgb(60, 120, 60);
+}
+
+#recommend-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.recommend-dialog-content {
+  min-width: min(92vw, 380px);
+}
+
+@media (max-width: 900px) {
+  .album-view,
+  .recommendations-layout {
+    grid-template-columns: 1fr;
+  }
+}
