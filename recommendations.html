@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Album Recommendations</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Album Recommendations</h1>
+      <nav>
+        <a href="./index.html">Back to Reviews</a>
+      </nav>
+    </header>
+
+    <main class="recommendations-layout">
+      <section class="recommend-search">
+        <h2>Recommend an Album</h2>
+        <p>Sign in on the review page first. You can recommend each album once.</p>
+        <input id="recommend-search-input" type="text" placeholder="Search albums..." />
+        <div id="recommend-search-results" class="recommend-search-results"></div>
+      </section>
+
+      <section>
+        <h2>Most Recommended</h2>
+        <div id="recommend-list"></div>
+      </section>
+    </main>
+
+    <dialog id="recommend-dialog">
+      <form method="dialog" class="recommend-dialog-content">
+        <h3>Confirm Recommendation</h3>
+        <div id="recommend-dialog-album"></div>
+        <menu class="dialog-actions">
+          <button value="cancel">Cancel</button>
+          <button id="recommend-confirm" value="default" class="primary">Confirm</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="./recommendations.js"></script>
+  </body>
+</html>

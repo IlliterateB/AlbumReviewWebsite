@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Album Review Website</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="album-background" class="album-background"></div>
+    <div class="page-overlay"></div>
+
+    <header class="site-header">
+      <h1>Album Review Website</h1>
+      <nav>
+        <a href="./recommendations.html">Recommendations</a>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <section id="album-view" class="album-view"></section>
+    </main>
+
+    <section id="album-slider" class="album-slider" aria-label="Album rank slider"></section>
+
+    <button id="message-toggle" class="message-toggle" aria-label="Open message and comments panel">Message</button>
+    <aside id="message-panel" class="message-panel hidden">
+      <button id="panel-close" class="panel-close" aria-label="Close message panel">×</button>
+      <h2>Sign In &amp; Comments</h2>
+      <div id="auth-area"></div>
+      <hr />
+      <div id="comments-area"></div>
+    </aside>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
