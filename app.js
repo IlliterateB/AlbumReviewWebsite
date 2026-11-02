@@ -1,53 +1,54 @@
 const albums = [
   {
-    id: "random-access-memories",
+    id: "care-for-me",
     rank: 1,
-    title: "Random Access Memories",
-    artist: "Daft Punk",
-    cover: "https://i.scdn.co/image/ab67616d0000b273fdbf8b4d7c9ec0f5b7a2d5f6",
-    albumUrl: "https://open.spotify.com/album/4m2880jivSbbyEGAKfITCa",
+    title: "Care For Me",
+    artist: "Saba",
+    cover: "./covers/care-for-me.jpg",
+    albumUrl: "https://www.deezer.com/album/614334032",
     songs: [
-      { title: "Give Life Back to Music", plays: 189004232, url: "https://open.spotify.com/track/2yLju4E4k2P4bG7rV7G7N1" },
-      { title: "Get Lucky", plays: 1456720011, url: "https://open.spotify.com/track/69kOkLUCkxIZYexIgSG8rq" },
-      { title: "Instant Crush", plays: 801330204, url: "https://open.spotify.com/track/2cGxRwrMyEAp8dEbuZaVv6" }
+      { title: "BUSY/SIRENS", plays: 37303000, url: "https://www.deezer.com/track/2887227422" },
+      { title: "LIFE", plays: 34808100, url: "https://www.deezer.com/track/2887227442" },
+      { title: "PROM/KING", plays: 18784300, url: "https://www.deezer.com/track/2887227502" }
     ],
-    bestSong: { title: "Instant Crush", plays: 801330204, url: "https://open.spotify.com/track/2cGxRwrMyEAp8dEbuZaVv6" },
-    worstSong: { title: "Motherboard", plays: 144240771, url: "https://open.spotify.com/track/2I6AozfVJ8rC0vV4u6Qa6v" },
+    bestSong: { title: "BUSY/SIRENS", plays: 37303000, url: "https://www.deezer.com/track/2887227422" },
+    worstSong: { title: "GREY", plays: 14113200, url: "https://www.deezer.com/track/2887227492" },
     review:
-      "The production detail is unreal, the sequencing feels cinematic, and the grooves keep pulling me back."
+      "Grief, Chicago, and melody sit side by side here — it is personal without ever losing its sense of rhythm, which is why it sits at number one."
   },
   {
-    id: "blonde",
+    id: "marshall-mathers-lp",
     rank: 2,
-    title: "Blonde",
-    artist: "Frank Ocean",
-    cover: "https://i.scdn.co/image/ab67616d0000b273e99f1f3a7c6f42f7f372f04f",
-    albumUrl: "https://open.spotify.com/album/3mH6qwIy9crq0I9YQbOuDf",
+    title: "The Marshall Mathers LP",
+    artist: "Eminem",
+    cover: "./covers/marshall-mathers-lp.jpg",
+    albumUrl: "https://www.deezer.com/album/125748",
     songs: [
-      { title: "Nikes", plays: 535113882, url: "https://open.spotify.com/track/0HxaP5b0T6P3ABP3JEC6tr" },
-      { title: "Ivy", plays: 837201774, url: "https://open.spotify.com/track/4QhWbupniDd44EDtnh2bFJ" },
-      { title: "Nights", plays: 1013042208, url: "https://open.spotify.com/track/7eqoqGkKwgOaWNNHx90uEZ" }
+      { title: "The Real Slim Shady", plays: 64060100, url: "https://www.deezer.com/track/1176202" },
+      { title: "Stan", plays: 53520800, url: "https://www.deezer.com/track/1176197" },
+      { title: "The Way I Am", plays: 44149400, url: "https://www.deezer.com/track/1176201" }
     ],
-    bestSong: { title: "Nights", plays: 1013042208, url: "https://open.spotify.com/track/7eqoqGkKwgOaWNNHx90uEZ" },
+    bestSong: { title: "The Real Slim Shady", plays: 64060100, url: "https://www.deezer.com/track/1176202" },
+    worstSong: { title: "Ken Kaniff (Skit)", plays: 29360900, url: "https://www.deezer.com/track/1176206" },
     review:
-      "A deeply emotional record with incredible transitions and subtle vocal layering that reveals more every listen."
+      "The writing is still shocking, funny, and precise, and the sequencing keeps the whole record feeling like a character study rather than a pile of singles."
   },
   {
-    id: "the-new-abnormal",
+    id: "atliens",
     rank: 3,
-    title: "The New Abnormal",
-    artist: "The Strokes",
-    cover: "https://i.scdn.co/image/ab67616d0000b2732f6f5dbf786ddf5f4a5e5d4f",
-    albumUrl: "https://open.spotify.com/album/2xkZV2Hl1Omi8rk2D7t5lN",
+    title: "ATLiens",
+    artist: "OutKast",
+    cover: "./covers/atliens.jpg",
+    albumUrl: "https://www.deezer.com/album/113990",
     songs: [
-      { title: "The Adults Are Talking", plays: 623551909, url: "https://open.spotify.com/track/5ruzrDWcT0vuJIOMW7gMnW" },
-      { title: "Bad Decisions", plays: 294410384, url: "https://open.spotify.com/track/55N8cxpE1QDoeaaNqUnoZ2" },
-      { title: "Ode to the Mets", plays: 144630804, url: "https://open.spotify.com/track/0OMM8hM8I7fA2JYI4fJx5h" }
+      { title: "ATLiens", plays: 56319200, url: "https://www.deezer.com/track/1047823" },
+      { title: "Elevators (Me & You)", plays: 39041500, url: "https://www.deezer.com/track/1043992" },
+      { title: "Jazzy Belle", plays: 36965700, url: "https://www.deezer.com/track/1047827" }
     ],
-    bestSong: { title: "The Adults Are Talking", plays: 623551909, url: "https://open.spotify.com/track/5ruzrDWcT0vuJIOMW7gMnW" },
-    worstSong: { title: "Bad Decisions", plays: 294410384, url: "https://open.spotify.com/track/55N8cxpE1QDoeaaNqUnoZ2" },
+    bestSong: { title: "ATLiens", plays: 56319200, url: "https://www.deezer.com/track/1047823" },
+    worstSong: { title: "E.T. (Extraterrestrial)", plays: 23598600, url: "https://www.deezer.com/track/1044002" },
     review:
-      "This one blends sharp guitars and moody synth textures perfectly while still feeling like classic Strokes."
+      "Spacey drums, Atlanta slang, and two voices that never sound the same twice — it still feels like a world you can step into."
   }
 ].sort((a, b) => a.rank - b.rank);
 
@@ -68,74 +69,293 @@ const storage = {
 const params = new URLSearchParams(window.location.search);
 const albumId = params.get("album") || albums[0].id;
 const currentAlbum = albums.find((album) => album.id === albumId) || albums[0];
+const currentIndex = Math.max(0, albums.findIndex((album) => album.id === currentAlbum.id));
 
 function formatPlays(plays) {
   return new Intl.NumberFormat("en-US").format(plays);
 }
 
+function seededRandom(seed) {
+  let state = 0;
+  for (let i = 0; i < seed.length; i += 1) {
+    state = (state * 31 + seed.charCodeAt(i)) >>> 0;
+  }
+  return () => {
+    state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+    return state / 4294967296;
+  };
+}
+
+function extractPalette(image, count = 5) {
+  const sample = document.createElement("canvas");
+  const size = 48;
+  sample.width = size;
+  sample.height = size;
+  const ctx = sample.getContext("2d", { willReadFrequently: true });
+  ctx.drawImage(image, 0, 0, size, size);
+  const { data } = ctx.getImageData(0, 0, size, size);
+  const buckets = new Map();
+
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    const a = data[i + 3];
+    if (a < 180) continue;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    if (max < 28 || min > 235) continue;
+    const key = `${r >> 4}-${g >> 4}-${b >> 4}`;
+    const rec = buckets.get(key) || { r: 0, g: 0, b: 0, n: 0 };
+    rec.r += r;
+    rec.g += g;
+    rec.b += b;
+    rec.n += 1;
+    buckets.set(key, rec);
+  }
+
+  return [...buckets.values()]
+    .sort((a, b) => b.n - a.n)
+    .slice(0, count)
+    .map((c) => ({
+      r: Math.round(c.r / c.n),
+      g: Math.round(c.g / c.n),
+      b: Math.round(c.b / c.n)
+    }));
+}
+
+function paintSwirlPath(ctx, rand, width, height) {
+  const startX = rand() * width;
+  const startY = rand() * height;
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  const loops = 2 + Math.floor(rand() * 3);
+  for (let i = 0; i < loops; i += 1) {
+    ctx.bezierCurveTo(
+      rand() * width,
+      rand() * height,
+      rand() * width,
+      rand() * height,
+      rand() * width,
+      rand() * height
+    );
+  }
+}
+
+function paintSwirlsFromPalette(canvas, palette, seed) {
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  canvas.width = Math.max(1, Math.floor(width * dpr));
+  canvas.height = Math.max(1, Math.floor(height * dpr));
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = "#f6f3ef";
+  ctx.fillRect(0, 0, width, height);
+
+  const rand = seededRandom(seed);
+  const strokes = 18;
+  for (let i = 0; i < strokes; i += 1) {
+    const color = palette[i % palette.length];
+    ctx.save();
+    paintSwirlPath(ctx, rand, width, height);
+    ctx.strokeStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${0.22 + rand() * 0.28})`;
+    ctx.lineWidth = 64 + rand() * 150;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+function paintSwirlsFromImage(canvas, image, seed) {
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  canvas.width = Math.max(1, Math.floor(width * dpr));
+  canvas.height = Math.max(1, Math.floor(height * dpr));
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = "#f6f3ef";
+  ctx.fillRect(0, 0, width, height);
+
+  const rand = seededRandom(seed);
+  const layer = document.createElement("canvas");
+  layer.width = Math.max(1, Math.floor(width * dpr));
+  layer.height = Math.max(1, Math.floor(height * dpr));
+  const layerCtx = layer.getContext("2d");
+
+  for (let i = 0; i < 14; i += 1) {
+    layerCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    layerCtx.clearRect(0, 0, width, height);
+    layerCtx.lineCap = "round";
+    layerCtx.lineJoin = "round";
+    layerCtx.lineWidth = 70 + rand() * 140;
+    layerCtx.strokeStyle = "#000";
+    paintSwirlPath(layerCtx, rand, width, height);
+    layerCtx.stroke();
+    layerCtx.globalCompositeOperation = "source-in";
+    const scale = 1.4 + rand();
+    const dw = width * scale;
+    const dh = height * scale;
+    layerCtx.filter = "blur(8px) saturate(1.25)";
+    layerCtx.drawImage(image, -rand() * (dw - width), -rand() * (dh - height), dw, dh);
+    layerCtx.filter = "none";
+    layerCtx.globalCompositeOperation = "source-over";
+    ctx.globalAlpha = 0.38;
+    ctx.drawImage(layer, 0, 0, width, height);
+    ctx.globalAlpha = 1;
+  }
+}
+
+function loadCoverImage(src) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = src;
+  });
+}
+
+async function renderSwirlBackground(album) {
+  const canvas = document.getElementById("swirl-canvas");
+  if (!canvas) return;
+
+  try {
+    const image = await loadCoverImage(album.cover);
+    let palette = null;
+    try {
+      palette = extractPalette(image, 5);
+    } catch {
+      palette = null;
+    }
+
+    if (palette && palette.length) {
+      paintSwirlsFromPalette(canvas, palette, album.id);
+    } else {
+      paintSwirlsFromImage(canvas, image, album.id);
+    }
+  } catch {
+    paintSwirlsFromPalette(
+      canvas,
+      [
+        { r: 120, g: 120, b: 120 },
+        { r: 90, g: 90, b: 90 },
+        { r: 160, g: 160, b: 160 }
+      ],
+      album.id
+    );
+  }
+}
+
+function goToAlbum(nextAlbumId) {
+  const nextUrl = new URL(window.location.href);
+  nextUrl.searchParams.set("album", nextAlbumId);
+  window.location.href = nextUrl.toString();
+}
+
 function renderAlbum(album) {
-  document.getElementById("album-background").style.backgroundImage = `url('${album.cover}')`;
   document.getElementById("album-view").innerHTML = `
     <a class="album-cover-link" href="${album.albumUrl}" target="_blank" rel="noreferrer">
       <img src="${album.cover}" alt="${album.title} album cover" />
     </a>
-    <div class="meta-sections">
-      <article class="section-card"><h2>${album.rank}. ${album.title}</h2></article>
-      <article class="section-card"><h3>Artist</h3><p>${album.artist}</p></article>
-      <article class="section-card">
-        <h3>Total Plays by Song</h3>
-        <table class="song-table">
-          <tbody>
-            ${album.songs
-              .map(
-                (song) =>
-                  `<tr><td><a href="${song.url}" target="_blank" rel="noreferrer">${song.title}</a></td><td>${formatPlays(song.plays)}</td></tr>`
-              )
-              .join("")}
-          </tbody>
-        </table>
-      </article>
-      <article class="section-card">
-        <h3>Best Song</h3>
-        <p><a href="${album.bestSong.url}" target="_blank" rel="noreferrer">${album.bestSong.title}</a> — ${formatPlays(
-          album.bestSong.plays
-        )}</p>
-      </article>
-      ${
-        album.worstSong
-          ? `<article class="section-card"><h3>Worst Song</h3><p><a href="${album.worstSong.url}" target="_blank" rel="noreferrer">${album.worstSong.title}</a> — ${formatPlays(album.worstSong.plays)}</p></article>`
-          : ""
-      }
-      <article class="section-card"><h3>Review</h3><p>${album.review}</p></article>
+    <div class="album-copy">
+      <p>Album: <a href="${album.albumUrl}" target="_blank" rel="noreferrer">${album.title}</a></p>
+      <p>Artist: ${album.artist}</p>
+      <p>Best Song: <a href="${album.bestSong.url}" target="_blank" rel="noreferrer">${album.bestSong.title}</a></p>
+      <p class="album-review">${album.review}</p>
     </div>
   `;
+  renderSwirlBackground(album);
+}
+
+function trackProgress(index) {
+  if (albums.length === 1) return 1;
+  return index / (albums.length - 1);
+}
+
+function albumIndexFromClientX(track, clientX) {
+  const rect = track.getBoundingClientRect();
+  const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+  return Math.round(ratio * (albums.length - 1));
 }
 
 function renderSlider() {
   const slider = document.getElementById("album-slider");
-  slider.innerHTML = albums
-    .map(
-      (album) => `
-      <button class="slider-segment ${album.id === currentAlbum.id ? "active" : ""}" data-album-id="${album.id}">
-        #${album.rank}
-        <span class="hover-preview">
-          <img src="${album.cover}" alt="" />
-          <strong>${album.title}</strong><br />
-          <span>${album.artist}</span><br />
-          <span>Rank ${album.rank}</span>
-        </span>
-      </button>
-    `
-    )
-    .join("");
+  const progress = trackProgress(currentIndex);
+  const fillWidth = `calc(12px + (100% - 24px) * ${progress})`;
+  const knobLeft = `calc(12px + (100% - 24px) * ${progress})`;
 
-  slider.querySelectorAll(".slider-segment").forEach((button) => {
-    button.addEventListener("click", () => {
-      const nextAlbumId = button.dataset.albumId;
-      const nextUrl = new URL(window.location.href);
-      nextUrl.searchParams.set("album", nextAlbumId);
-      window.location.href = nextUrl.toString();
-    });
+  slider.innerHTML = `
+    <div class="player-now">
+      <img src="${currentAlbum.cover}" alt="" />
+      <p>${currentAlbum.rank}. ${currentAlbum.title}</p>
+    </div>
+    <div class="player-track-wrap">
+      <div id="player-preview" class="player-preview"></div>
+      <div id="player-track" class="player-track" role="slider" tabindex="0"
+        aria-valuemin="1" aria-valuemax="${albums.length}" aria-valuenow="${currentAlbum.rank}"
+        aria-label="Select album by rank">
+        <div class="player-fill" style="width:${fillWidth}"></div>
+        <div class="player-knob" style="left:${knobLeft}"></div>
+      </div>
+    </div>
+  `;
+
+  const track = document.getElementById("player-track");
+  const preview = document.getElementById("player-preview");
+  let dragging = false;
+
+  const showPreview = (index, clientX) => {
+    const album = albums[index];
+    if (!album) return;
+    const wrapRect = track.parentElement.getBoundingClientRect();
+    preview.classList.add("visible");
+    preview.innerHTML = `
+      <img src="${album.cover}" alt="" />
+      <strong>${album.rank}. ${album.title}</strong>
+      <span>${album.artist}</span>
+    `;
+    const left = Math.min(
+      wrapRect.width - 188,
+      Math.max(0, clientX - wrapRect.left - 90)
+    );
+    preview.style.left = `${left}px`;
+  };
+
+  const selectFromEvent = (event) => {
+    const index = albumIndexFromClientX(track, event.clientX);
+    const next = albums[index];
+    if (next && next.id !== currentAlbum.id) goToAlbum(next.id);
+  };
+
+  track.addEventListener("pointerdown", (event) => {
+    dragging = true;
+    track.setPointerCapture(event.pointerId);
+    showPreview(albumIndexFromClientX(track, event.clientX), event.clientX);
+  });
+  track.addEventListener("pointermove", (event) => {
+    const index = albumIndexFromClientX(track, event.clientX);
+    showPreview(index, event.clientX);
+  });
+  track.addEventListener("pointerup", (event) => {
+    if (dragging) selectFromEvent(event);
+    dragging = false;
+    preview.classList.remove("visible");
+  });
+  track.addEventListener("pointerleave", () => {
+    if (!dragging) preview.classList.remove("visible");
+  });
+  track.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight" && currentIndex < albums.length - 1) {
+      goToAlbum(albums[currentIndex + 1].id);
+    }
+    if (event.key === "ArrowLeft" && currentIndex > 0) {
+      goToAlbum(albums[currentIndex - 1].id);
+    }
   });
 }
 
@@ -162,8 +382,7 @@ function renderAuthAndComments() {
       if (!username || !email) return;
       const code = String(Math.floor(100000 + Math.random() * 900000));
       storage.set("pendingAuth", { username, email, code });
-      document.getElementById("auth-note").textContent =
-        "Sign-in code sent. Demo code: " + code;
+      document.getElementById("auth-note").textContent = "Sign-in code sent. Demo code: " + code;
     });
 
     document.getElementById("verify-code").addEventListener("click", () => {
@@ -189,16 +408,21 @@ function renderAuthAndComments() {
   const commentsKey = `comments:${currentAlbum.id}`;
   const comments = storage.get(commentsKey, []);
   commentsArea.innerHTML = `
-    <h3>Comments on ${currentAlbum.title}</h3>
-    <textarea id="comment-input" rows="4" placeholder="Write your comment"></textarea>
+    <textarea id="comment-input" rows="3" placeholder="Write your comment"></textarea>
     <button id="comment-submit" class="primary">Submit</button>
     <div id="comment-list">
-      ${comments
-        .map(
-          (comment) =>
-            `<article class="section-card"><strong>${comment.user}</strong><p>${comment.text}</p></article>`
-        )
-        .join("")}
+      ${
+        comments.length
+          ? comments
+              .map(
+                (comment) =>
+                  `<article class="comment-item"><strong>${comment.user}</strong><p>${comment.text}</p></article>`
+              )
+              .join("")
+          : `<article class="comment-item"><strong>User 1</strong><p></p></article>
+             <article class="comment-item"><strong>User 2</strong><p></p></article>
+             <article class="comment-item"><strong>User 3</strong><p></p></article>`
+      }
     </div>
   `;
 
@@ -214,7 +438,9 @@ function renderAuthAndComments() {
 
     const nextComments = storage.get(commentsKey, []);
     const normalized = text.toLowerCase();
-    const duplicate = nextComments.some((comment) => comment.user === currentUser.username && comment.text.toLowerCase() === normalized);
+    const duplicate = nextComments.some(
+      (comment) => comment.user === currentUser.username && comment.text.toLowerCase() === normalized
+    );
     if (!duplicate) {
       nextComments.unshift({ user: currentUser.username, text, createdAt: Date.now() });
       storage.set(commentsKey, nextComments);
@@ -224,17 +450,10 @@ function renderAuthAndComments() {
   });
 }
 
-function wirePanel() {
-  const panel = document.getElementById("message-panel");
-  document.getElementById("message-toggle").addEventListener("click", () => {
-    panel.classList.toggle("hidden");
-  });
-  document.getElementById("panel-close").addEventListener("click", () => {
-    panel.classList.add("hidden");
-  });
-}
-
 renderAlbum(currentAlbum);
 renderSlider();
-wirePanel();
 renderAuthAndComments();
+
+window.addEventListener("resize", () => {
+  renderSwirlBackground(currentAlbum);
+});

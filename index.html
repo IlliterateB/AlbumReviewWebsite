@@ -4,33 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Album Review Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
-    <div id="album-background" class="album-background"></div>
-    <div class="page-overlay"></div>
+  <body class="review-page">
+    <canvas id="swirl-canvas" class="swirl-canvas" aria-hidden="true"></canvas>
 
-    <header class="site-header">
-      <h1>Album Review Website</h1>
+    <header class="site-header url-bar">
+      <p class="url-label">Album Review Website</p>
       <nav>
         <a href="./recommendations.html">Recommendations</a>
       </nav>
     </header>
 
-    <main class="main-content">
+    <main class="album-stage">
       <section id="album-view" class="album-view"></section>
     </main>
 
-    <section id="album-slider" class="album-slider" aria-label="Album rank slider"></section>
-
-    <button id="message-toggle" class="message-toggle" aria-label="Open message and comments panel">Message</button>
-    <aside id="message-panel" class="message-panel hidden">
-      <button id="panel-close" class="panel-close" aria-label="Close message panel">×</button>
-      <h2>Sign In &amp; Comments</h2>
+    <aside id="comments-dock" class="comments-dock">
+      <div class="comments-heading">
+        <h2>Comments</h2>
+        <span class="comments-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22">
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              d="M5 6.5h14v9.5H12l-4 3v-3H5V6.5z"
+            />
+          </svg>
+        </span>
+      </div>
       <div id="auth-area"></div>
-      <hr />
       <div id="comments-area"></div>
     </aside>
+
+    <section id="album-slider" class="player-bar" aria-label="Album rank slider"></section>
 
     <script src="./app.js"></script>
   </body>

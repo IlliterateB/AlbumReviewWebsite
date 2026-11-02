@@ -20,6 +20,22 @@ body {
   min-height: 100vh;
 }
 
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(8px);
+}
+
+.site-header a {
+  color: #fff;
+}
+
 .album-background {
   position: fixed;
   inset: 0;
@@ -37,53 +53,9 @@ body {
   z-index: -2;
 }
 
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  background: rgba(0, 0, 0, 0.4);
-  position: sticky;
-  top: 0;
-  backdrop-filter: blur(8px);
-}
-
-.site-header a {
-  color: #fff;
-}
-
 .main-content {
   padding: 20px;
   padding-bottom: 120px;
-}
-
-.album-view {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: rgba(0, 0, 0, 0.45);
-  border-radius: 14px;
-  padding: 18px;
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 20px;
-}
-
-.album-cover-link img {
-  width: 100%;
-  border-radius: 12px;
-  display: block;
-}
-
-.meta-sections {
-  display: grid;
-  gap: 10px;
-}
-
-.section-card {
-  background: var(--card);
-  border-radius: 10px;
-  padding: 10px 12px;
 }
 
 .song-table {
@@ -94,95 +66,6 @@ body {
 .song-table td {
   padding: 4px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.album-slider {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 10px;
-  display: flex;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.75);
-  overflow-x: auto;
-  z-index: 5;
-}
-
-.slider-segment {
-  min-width: 110px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  border-radius: 8px;
-  padding: 6px;
-  cursor: pointer;
-  position: relative;
-}
-
-.slider-segment.active {
-  border-color: var(--accent);
-}
-
-.hover-preview {
-  display: none;
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  width: 220px;
-  background: #161616;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
-  padding: 8px;
-}
-
-.hover-preview img {
-  width: 100%;
-  border-radius: 6px;
-}
-
-.slider-segment:hover .hover-preview {
-  display: block;
-}
-
-.message-toggle {
-  position: fixed;
-  right: 14px;
-  top: 40%;
-  z-index: 10;
-  border: none;
-  border-radius: 999px;
-  padding: 10px 14px;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.message-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: min(390px, 100%);
-  height: 100vh;
-  background: var(--panel);
-  padding: 16px;
-  z-index: 20;
-  overflow-y: auto;
-  border-left: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.message-panel.hidden {
-  display: none;
-}
-
-.panel-close {
-  float: right;
-  border: none;
-  background: transparent;
-  color: #fff;
-  font-size: 24px;
-  cursor: pointer;
 }
 
 input,
@@ -263,9 +146,316 @@ button.primary {
   min-width: min(92vw, 380px);
 }
 
+/* --- Main review page (wireframe layout) --- */
+
+body.review-page {
+  color-scheme: light;
+  font-family: "Outfit", Arial, sans-serif;
+  color: #2d2d2d;
+  background: #f6f3ef;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.swirl-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.review-page .url-bar {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 10px 28px 12px;
+}
+
+.review-page .url-label {
+  margin: 0;
+  font-family: "Caveat", cursive;
+  font-size: 2rem;
+  line-height: 1;
+  color: #111;
+}
+
+.review-page .site-header a {
+  color: #222;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.review-page .site-header a:hover {
+  border-bottom-color: #222;
+}
+
+.album-stage {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 220px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 7% 180px;
+}
+
+.review-page .album-view {
+  width: min(1100px, 100%);
+  display: grid;
+  grid-template-columns: minmax(260px, 460px) minmax(240px, 1fr);
+  gap: 56px;
+  align-items: center;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.album-cover-link {
+  display: block;
+}
+
+.album-cover-link img {
+  width: 100%;
+  display: block;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.album-copy {
+  display: grid;
+  gap: 28px;
+  color: #3a3a3a;
+  font-size: 1.12rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.album-copy p {
+  margin: 0;
+}
+
+.album-copy a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.album-copy a:hover {
+  text-decoration: underline;
+}
+
+.album-review {
+  max-width: 34ch;
+}
+
+.comments-dock {
+  position: fixed;
+  right: 28px;
+  bottom: 118px;
+  z-index: 4;
+  width: min(250px, calc(100vw - 32px));
+  border: 2px solid #222;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 10px 12px 12px;
+  max-height: min(48vh, 420px);
+  overflow: auto;
+}
+
+.comments-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.comments-heading h2 {
+  margin: 0;
+  font-family: "Caveat", cursive;
+  font-size: 1.85rem;
+  font-weight: 700;
+}
+
+.comments-icon {
+  color: #333;
+}
+
+.review-page #auth-area,
+.review-page #comments-area {
+  display: grid;
+  gap: 8px;
+}
+
+.review-page #auth-area h3,
+.review-page #comments-area h3 {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.review-page input,
+.review-page textarea {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #bbb;
+  color: #222;
+  border-radius: 0;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+}
+
+.review-page button.primary,
+.review-page #sign-out {
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.review-page #auth-note,
+.review-page #comments-area p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #444;
+}
+
+.comment-item {
+  margin: 10px 0 12px;
+}
+
+.comment-item strong {
+  display: block;
+  font-family: "Caveat", cursive;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.comment-item p {
+  margin: 2px 0 0;
+  border-bottom: 1px solid #777;
+  min-height: 1.1em;
+  font-size: 0.82rem;
+  color: #555;
+}
+
+.player-bar {
+  position: fixed;
+  left: 4%;
+  right: 290px;
+  bottom: 28px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px 16px;
+  align-items: end;
+}
+
+.player-now {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.player-now img {
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.player-now p {
+  margin: 0;
+  font-family: "Caveat", cursive;
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.player-track-wrap {
+  position: relative;
+  padding-top: 8px;
+}
+
+.player-track {
+  position: relative;
+  height: 28px;
+  border: 2px solid #222;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+}
+
+.player-fill {
+  position: absolute;
+  inset: 3px auto 3px 3px;
+  border-radius: 999px;
+  background: #1a1a1a;
+}
+
+.player-knob {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #111;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.player-preview {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  width: 180px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #222;
+  padding: 8px;
+  pointer-events: none;
+}
+
+.player-preview.visible {
+  display: block;
+}
+
+.player-preview img {
+  width: 100%;
+  display: block;
+}
+
+.player-preview strong,
+.player-preview span {
+  display: block;
+}
+
 @media (max-width: 900px) {
   .album-view,
+  .review-page .album-view,
   .recommendations-layout {
     grid-template-columns: 1fr;
+  }
+
+  .album-stage {
+    padding: 24px 6% 260px;
+  }
+
+  .player-bar {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    grid-template-columns: 1fr;
+  }
+
+  .comments-dock {
+    right: 16px;
+    bottom: 150px;
   }
 }

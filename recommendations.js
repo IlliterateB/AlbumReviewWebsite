@@ -1,33 +1,33 @@
 const albumCatalog = [
   {
-    id: "random-access-memories",
-    title: "Random Access Memories",
-    artist: "Daft Punk",
-    cover: "https://i.scdn.co/image/ab67616d0000b273fdbf8b4d7c9ec0f5b7a2d5f6"
+    id: "care-for-me",
+    title: "Care For Me",
+    artist: "Saba",
+    cover: "./covers/care-for-me.jpg"
   },
   {
-    id: "blonde",
-    title: "Blonde",
-    artist: "Frank Ocean",
-    cover: "https://i.scdn.co/image/ab67616d0000b273e99f1f3a7c6f42f7f372f04f"
+    id: "marshall-mathers-lp",
+    title: "The Marshall Mathers LP",
+    artist: "Eminem",
+    cover: "./covers/marshall-mathers-lp.jpg"
   },
   {
-    id: "the-new-abnormal",
-    title: "The New Abnormal",
-    artist: "The Strokes",
-    cover: "https://i.scdn.co/image/ab67616d0000b2732f6f5dbf786ddf5f4a5e5d4f"
+    id: "atliens",
+    title: "ATLiens",
+    artist: "OutKast",
+    cover: "./covers/atliens.jpg"
   },
   {
     id: "to-pimp-a-butterfly",
     title: "To Pimp a Butterfly",
     artist: "Kendrick Lamar",
-    cover: "https://i.scdn.co/image/ab67616d0000b2737d4b41c62f5fef2f8fef4b0f"
+    cover: "https://cdn-images.dzcdn.net/images/cover/a2b4e981e761aed778fbd2db34bd4d64/500x500-000000-80-0-0.jpg"
   },
   {
     id: "in-rainbows",
     title: "In Rainbows",
     artist: "Radiohead",
-    cover: "https://i.scdn.co/image/ab67616d0000b2739a9f4ca50e8f5d28c5d1e0fd"
+    cover: "https://cdn-images.dzcdn.net/images/cover/5105486d2cd73b48695dd3cfc1dc56d4/500x500-000000-80-0-0.jpg"
   }
 ];
 
