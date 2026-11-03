@@ -67,13 +67,18 @@ const storage = {
 };
 
 const params = new URLSearchParams(window.location.search);
-const albumId = params.get("album") || albums[0].id;
-const currentAlbum = albums.find((album) => album.id === albumId) || albums[0];
-const currentIndex = Math.max(0, albums.findIndex((album) => album.id === currentAlbum.id));
+let currentIndex = Math.max(
+  0,
+  albums.findIndex((album) => album.id === (params.get("album") || albums[0].id))
+);
+if (currentIndex < 0) currentIndex = 0;
 
-function formatPlays(plays) {
-  return new Intl.NumberFormat("en-US").format(plays);
-}
+let currentAlbum = albums[currentIndex];
+let isTransitioning = false;
+let activeCanvas = "a";
+let wheelLockUntil = 0;
+let wheelAccumulator = 0;
+const imageCache = new Map();
 
 function seededRandom(seed) {
   let state = 0;
@@ -86,42 +91,46 @@ function seededRandom(seed) {
   };
 }
 
-function extractPalette(image, count = 5) {
+function averageLuminance(image) {
   const sample = document.createElement("canvas");
-  const size = 48;
+  const size = 32;
   sample.width = size;
   sample.height = size;
   const ctx = sample.getContext("2d", { willReadFrequently: true });
   ctx.drawImage(image, 0, 0, size, size);
   const { data } = ctx.getImageData(0, 0, size, size);
-  const buckets = new Map();
-
+  let total = 0;
+  let count = 0;
   for (let i = 0; i < data.length; i += 4) {
-    const r = data[i];
-    const g = data[i + 1];
-    const b = data[i + 2];
-    const a = data[i + 3];
-    if (a < 180) continue;
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    if (max < 28 || min > 235) continue;
-    const key = `${r >> 4}-${g >> 4}-${b >> 4}`;
-    const rec = buckets.get(key) || { r: 0, g: 0, b: 0, n: 0 };
-    rec.r += r;
-    rec.g += g;
-    rec.b += b;
-    rec.n += 1;
-    buckets.set(key, rec);
+    if (data[i + 3] < 180) continue;
+    total += 0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2];
+    count += 1;
   }
+  return count ? total / count : 140;
+}
 
-  return [...buckets.values()]
-    .sort((a, b) => b.n - a.n)
-    .slice(0, count)
-    .map((c) => ({
-      r: Math.round(c.r / c.n),
-      g: Math.round(c.g / c.n),
-      b: Math.round(c.b / c.n)
-    }));
+function applyReadableTheme(luminance) {
+  document.body.classList.toggle("is-light-text", luminance < 118);
+  document.body.classList.toggle("is-dark-text", luminance >= 118);
+}
+
+function paintBlobPath(ctx, rand, width, height) {
+  const cx = rand() * width;
+  const cy = rand() * height;
+  const rx = width * (0.18 + rand() * 0.34);
+  const ry = height * (0.16 + rand() * 0.3);
+  const rotation = rand() * Math.PI * 2;
+  ctx.beginPath();
+  const steps = 7;
+  for (let i = 0; i <= steps; i += 1) {
+    const t = (i / steps) * Math.PI * 2;
+    const wobble = 0.72 + rand() * 0.55;
+    const x = cx + Math.cos(t + rotation) * rx * wobble;
+    const y = cy + Math.sin(t + rotation) * ry * wobble;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
 }
 
 function paintSwirlPath(ctx, rand, width, height) {
@@ -142,123 +151,132 @@ function paintSwirlPath(ctx, rand, width, height) {
   }
 }
 
-function paintSwirlsFromPalette(canvas, palette, seed) {
+function paintCoverShapes(canvas, image, seed) {
   const ctx = canvas.getContext("2d");
   const dpr = window.devicePixelRatio || 1;
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+  const width = canvas.clientWidth || window.innerWidth;
+  const height = canvas.clientHeight || window.innerHeight;
   canvas.width = Math.max(1, Math.floor(width * dpr));
   canvas.height = Math.max(1, Math.floor(height * dpr));
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = "#f6f3ef";
-  ctx.fillRect(0, 0, width, height);
 
   const rand = seededRandom(seed);
-  const strokes = 18;
-  for (let i = 0; i < strokes; i += 1) {
-    const color = palette[i % palette.length];
-    ctx.save();
-    paintSwirlPath(ctx, rand, width, height);
-    ctx.strokeStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${0.22 + rand() * 0.28})`;
-    ctx.lineWidth = 64 + rand() * 150;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.stroke();
-    ctx.restore();
-  }
-}
+  ctx.filter = "blur(36px) saturate(1.15)";
+  ctx.globalAlpha = 0.9;
+  ctx.drawImage(image, -width * 0.12, -height * 0.12, width * 1.24, height * 1.24);
+  ctx.filter = "none";
+  ctx.globalAlpha = 1;
 
-function paintSwirlsFromImage(canvas, image, seed) {
-  const ctx = canvas.getContext("2d");
-  const dpr = window.devicePixelRatio || 1;
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
-  canvas.width = Math.max(1, Math.floor(width * dpr));
-  canvas.height = Math.max(1, Math.floor(height * dpr));
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = "#f6f3ef";
-  ctx.fillRect(0, 0, width, height);
-
-  const rand = seededRandom(seed);
   const layer = document.createElement("canvas");
-  layer.width = Math.max(1, Math.floor(width * dpr));
-  layer.height = Math.max(1, Math.floor(height * dpr));
+  layer.width = canvas.width;
+  layer.height = canvas.height;
   const layerCtx = layer.getContext("2d");
 
-  for (let i = 0; i < 14; i += 1) {
+  for (let i = 0; i < 16; i += 1) {
     layerCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     layerCtx.clearRect(0, 0, width, height);
-    layerCtx.lineCap = "round";
-    layerCtx.lineJoin = "round";
-    layerCtx.lineWidth = 70 + rand() * 140;
-    layerCtx.strokeStyle = "#000";
-    paintSwirlPath(layerCtx, rand, width, height);
-    layerCtx.stroke();
+
+    if (i % 2 === 0) {
+      paintBlobPath(layerCtx, rand, width, height);
+      layerCtx.fillStyle = "#000";
+      layerCtx.fill();
+    } else {
+      layerCtx.lineCap = "round";
+      layerCtx.lineJoin = "round";
+      layerCtx.lineWidth = 90 + rand() * 160;
+      layerCtx.strokeStyle = "#000";
+      paintSwirlPath(layerCtx, rand, width, height);
+      layerCtx.stroke();
+    }
+
     layerCtx.globalCompositeOperation = "source-in";
-    const scale = 1.4 + rand();
+    const scale = 1.2 + rand() * 1.1;
     const dw = width * scale;
     const dh = height * scale;
-    layerCtx.filter = "blur(8px) saturate(1.25)";
+    layerCtx.filter = "blur(14px) saturate(1.2)";
     layerCtx.drawImage(image, -rand() * (dw - width), -rand() * (dh - height), dw, dh);
     layerCtx.filter = "none";
     layerCtx.globalCompositeOperation = "source-over";
-    ctx.globalAlpha = 0.38;
+
+    ctx.globalAlpha = 0.42 + rand() * 0.28;
     ctx.drawImage(layer, 0, 0, width, height);
     ctx.globalAlpha = 1;
   }
 }
 
+function paintFallbackShapes(canvas, seed) {
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  const width = canvas.clientWidth || window.innerWidth;
+  const height = canvas.clientHeight || window.innerHeight;
+  canvas.width = Math.max(1, Math.floor(width * dpr));
+  canvas.height = Math.max(1, Math.floor(height * dpr));
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.fillStyle = "#d7d3cd";
+  ctx.fillRect(0, 0, width, height);
+  const rand = seededRandom(seed);
+  for (let i = 0; i < 12; i += 1) {
+    const shade = 110 + Math.floor(rand() * 90);
+    paintBlobPath(ctx, rand, width, height);
+    ctx.fillStyle = `rgba(${shade}, ${shade}, ${shade}, 0.35)`;
+    ctx.filter = "blur(18px)";
+    ctx.fill();
+    ctx.filter = "none";
+  }
+}
+
 function loadCoverImage(src) {
-  return new Promise((resolve, reject) => {
+  if (imageCache.has(src)) return imageCache.get(src);
+  const promise = new Promise((resolve, reject) => {
     const image = new Image();
-    image.crossOrigin = "anonymous";
     image.onload = () => resolve(image);
     image.onerror = reject;
     image.src = src;
   });
+  imageCache.set(src, promise);
+  return promise;
 }
 
-async function renderSwirlBackground(album) {
-  const canvas = document.getElementById("swirl-canvas");
-  if (!canvas) return;
+function getCanvases() {
+  return {
+    a: document.getElementById("swirl-canvas-a"),
+    b: document.getElementById("swirl-canvas-b")
+  };
+}
 
+async function paintBackground(canvas, album) {
   try {
     const image = await loadCoverImage(album.cover);
-    let palette = null;
-    try {
-      palette = extractPalette(image, 5);
-    } catch {
-      palette = null;
-    }
-
-    if (palette && palette.length) {
-      paintSwirlsFromPalette(canvas, palette, album.id);
-    } else {
-      paintSwirlsFromImage(canvas, image, album.id);
-    }
+    paintCoverShapes(canvas, image, album.id);
+    return averageLuminance(image);
   } catch {
-    paintSwirlsFromPalette(
-      canvas,
-      [
-        { r: 120, g: 120, b: 120 },
-        { r: 90, g: 90, b: 90 },
-        { r: 160, g: 160, b: 160 }
-      ],
-      album.id
-    );
+    paintFallbackShapes(canvas, album.id);
+    return 150;
   }
 }
 
-function goToAlbum(nextAlbumId) {
-  const nextUrl = new URL(window.location.href);
-  nextUrl.searchParams.set("album", nextAlbumId);
-  window.location.href = nextUrl.toString();
+async function showBackground(album, { instant = false } = {}) {
+  const canvases = getCanvases();
+  const nextKey = activeCanvas === "a" ? "b" : "a";
+  const nextCanvas = canvases[nextKey];
+  const currentCanvas = canvases[activeCanvas];
+  const luminance = await paintBackground(nextCanvas, album);
+
+  if (instant) {
+    nextCanvas.classList.add("is-active");
+    currentCanvas.classList.remove("is-active");
+  } else {
+    nextCanvas.classList.add("is-active");
+    currentCanvas.classList.remove("is-active");
+  }
+
+  activeCanvas = nextKey;
+  applyReadableTheme(luminance);
 }
 
-function renderAlbum(album) {
-  document.getElementById("album-view").innerHTML = `
+function albumMarkup(album) {
+  return `
     <a class="album-cover-link" href="${album.albumUrl}" target="_blank" rel="noreferrer">
       <img src="${album.cover}" alt="${album.title} album cover" />
     </a>
@@ -269,7 +287,12 @@ function renderAlbum(album) {
       <p class="album-review">${album.review}</p>
     </div>
   `;
-  renderSwirlBackground(album);
+}
+
+function updateUrl(album) {
+  const nextUrl = new URL(window.location.href);
+  nextUrl.searchParams.set("album", album.id);
+  history.replaceState({ albumId: album.id }, "", nextUrl);
 }
 
 function trackProgress(index) {
@@ -319,17 +342,8 @@ function renderSlider() {
       <strong>${album.rank}. ${album.title}</strong>
       <span>${album.artist}</span>
     `;
-    const left = Math.min(
-      wrapRect.width - 188,
-      Math.max(0, clientX - wrapRect.left - 90)
-    );
+    const left = Math.min(wrapRect.width - 188, Math.max(0, clientX - wrapRect.left - 90));
     preview.style.left = `${left}px`;
-  };
-
-  const selectFromEvent = (event) => {
-    const index = albumIndexFromClientX(track, event.clientX);
-    const next = albums[index];
-    if (next && next.id !== currentAlbum.id) goToAlbum(next.id);
   };
 
   track.addEventListener("pointerdown", (event) => {
@@ -342,7 +356,10 @@ function renderSlider() {
     showPreview(index, event.clientX);
   });
   track.addEventListener("pointerup", (event) => {
-    if (dragging) selectFromEvent(event);
+    if (dragging) {
+      const index = albumIndexFromClientX(track, event.clientX);
+      goToIndex(index);
+    }
     dragging = false;
     preview.classList.remove("visible");
   });
@@ -350,12 +367,8 @@ function renderSlider() {
     if (!dragging) preview.classList.remove("visible");
   });
   track.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight" && currentIndex < albums.length - 1) {
-      goToAlbum(albums[currentIndex + 1].id);
-    }
-    if (event.key === "ArrowLeft" && currentIndex > 0) {
-      goToAlbum(albums[currentIndex - 1].id);
-    }
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") goToIndex(currentIndex + 1);
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") goToIndex(currentIndex - 1);
   });
 }
 
@@ -450,10 +463,128 @@ function renderAuthAndComments() {
   });
 }
 
-renderAlbum(currentAlbum);
-renderSlider();
-renderAuthAndComments();
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function goToIndex(nextIndex, { animate = true } = {}) {
+  if (nextIndex < 0 || nextIndex >= albums.length || nextIndex === currentIndex || isTransitioning) {
+    return;
+  }
+
+  const direction = nextIndex > currentIndex ? "next" : "prev";
+  const nextAlbum = albums[nextIndex];
+  const view = document.getElementById("album-view");
+  isTransitioning = true;
+
+  if (animate) {
+    view.classList.remove("is-entering-next", "is-entering-prev", "is-leaving-next", "is-leaving-prev");
+    view.classList.add(direction === "next" ? "is-leaving-next" : "is-leaving-prev");
+    await Promise.all([showBackground(nextAlbum), wait(280)]);
+    currentIndex = nextIndex;
+    currentAlbum = nextAlbum;
+    updateUrl(currentAlbum);
+    view.innerHTML = albumMarkup(currentAlbum);
+    view.classList.remove("is-leaving-next", "is-leaving-prev");
+    view.classList.add(direction === "next" ? "is-entering-next" : "is-entering-prev");
+    renderSlider();
+    renderAuthAndComments();
+    await wait(560);
+    view.classList.remove("is-entering-next", "is-entering-prev");
+  } else {
+    currentIndex = nextIndex;
+    currentAlbum = nextAlbum;
+    updateUrl(currentAlbum);
+    view.innerHTML = albumMarkup(currentAlbum);
+    await showBackground(currentAlbum, { instant: true });
+    renderSlider();
+    renderAuthAndComments();
+  }
+
+  isTransitioning = false;
+  wheelAccumulator = 0;
+  wheelLockUntil = Date.now() + 450;
+}
+
+function wireScrollNavigation() {
+  window.addEventListener(
+    "wheel",
+    (event) => {
+      if (Date.now() < wheelLockUntil || isTransitioning) {
+        event.preventDefault();
+        return;
+      }
+
+      const dominant =
+        Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      if (Math.abs(dominant) < 8) return;
+
+      event.preventDefault();
+      wheelAccumulator += dominant;
+      if (Math.abs(wheelAccumulator) < 70) return;
+
+      const goingNext = wheelAccumulator > 0;
+      wheelAccumulator = 0;
+      goToIndex(currentIndex + (goingNext ? 1 : -1));
+    },
+    { passive: false }
+  );
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+  window.addEventListener(
+    "touchstart",
+    (event) => {
+      if (!event.touches[0]) return;
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+    },
+    { passive: true }
+  );
+  window.addEventListener(
+    "touchend",
+    (event) => {
+      const touch = event.changedTouches[0];
+      if (!touch || isTransitioning) return;
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+      if (Math.abs(dx) < 48 && Math.abs(dy) < 48) return;
+      if (Math.abs(dx) >= Math.abs(dy)) {
+        goToIndex(currentIndex + (dx < 0 ? 1 : -1));
+      } else {
+        goToIndex(currentIndex + (dy < 0 ? 1 : -1));
+      }
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("keydown", (event) => {
+    if (event.repeat) return;
+    if (event.key === "ArrowDown" || event.key === "ArrowRight" || event.key === "PageDown") {
+      event.preventDefault();
+      goToIndex(currentIndex + 1);
+    }
+    if (event.key === "ArrowUp" || event.key === "ArrowLeft" || event.key === "PageUp") {
+      event.preventDefault();
+      goToIndex(currentIndex - 1);
+    }
+  });
+}
+
+async function init() {
+  const view = document.getElementById("album-view");
+  view.innerHTML = albumMarkup(currentAlbum);
+  await showBackground(currentAlbum, { instant: true });
+  renderSlider();
+  renderAuthAndComments();
+  wireScrollNavigation();
+  albums.forEach((album) => {
+    loadCoverImage(album.cover).catch(() => {});
+  });
+}
 
 window.addEventListener("resize", () => {
-  renderSwirlBackground(currentAlbum);
+  showBackground(currentAlbum, { instant: true });
 });
+
+init();

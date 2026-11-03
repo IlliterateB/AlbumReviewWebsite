@@ -13,7 +13,11 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="review-page">
-    <canvas id="swirl-canvas" class="swirl-canvas" aria-hidden="true"></canvas>
+    <div class="bg-stack" aria-hidden="true">
+      <canvas id="swirl-canvas-a" class="swirl-canvas is-active"></canvas>
+      <canvas id="swirl-canvas-b" class="swirl-canvas"></canvas>
+      <div class="bg-wash"></div>
+    </div>
 
     <header class="site-header url-bar">
       <p class="url-label">Album Review Website</p>

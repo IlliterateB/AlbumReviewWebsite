@@ -36,23 +36,6 @@ body {
   color: #fff;
 }
 
-.album-background {
-  position: fixed;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.1);
-  filter: blur(28px) saturate(1.2);
-  z-index: -3;
-}
-
-.page-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  z-index: -2;
-}
-
 .main-content {
   padding: 20px;
   padding-bottom: 120px;
@@ -146,33 +129,74 @@ button.primary {
   min-width: min(92vw, 380px);
 }
 
-/* --- Main review page (wireframe layout) --- */
+/* --- Main review page --- */
 
 body.review-page {
+  --ink: #161616;
+  --ink-soft: rgba(22, 22, 22, 0.78);
+  --wash: rgba(255, 255, 255, 0.42);
+  --copy-shadow: 0 1px 0 rgba(255, 255, 255, 0.55), 0 2px 18px rgba(255, 255, 255, 0.35);
+  --header-line: rgba(22, 22, 22, 0.55);
   color-scheme: light;
   font-family: "Outfit", Arial, sans-serif;
-  color: #2d2d2d;
-  background: #f6f3ef;
+  color: var(--ink);
+  background: #eceae6;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
+  height: 100vh;
 }
 
-.swirl-canvas {
+body.review-page.is-dark-text {
+  --ink: #101010;
+  --ink-soft: rgba(16, 16, 16, 0.82);
+  --wash: rgba(255, 255, 255, 0.48);
+  --copy-shadow: 0 1px 0 rgba(255, 255, 255, 0.7), 0 3px 22px rgba(255, 255, 255, 0.45);
+  --header-line: rgba(16, 16, 16, 0.5);
+}
+
+body.review-page.is-light-text {
+  --ink: #f7f7f7;
+  --ink-soft: rgba(247, 247, 247, 0.88);
+  --wash: rgba(0, 0, 0, 0.38);
+  --copy-shadow: 0 1px 0 rgba(0, 0, 0, 0.55), 0 3px 20px rgba(0, 0, 0, 0.45);
+  --header-line: rgba(247, 247, 247, 0.45);
+}
+
+.bg-stack {
   position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
   z-index: 0;
   pointer-events: none;
 }
 
+.swirl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.swirl-canvas.is-active {
+  opacity: 1;
+}
+
+.bg-wash {
+  position: absolute;
+  inset: 0;
+  background: var(--wash);
+  transition: background 0.7s ease;
+}
+
 .review-page .url-bar {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   background: transparent;
   backdrop-filter: none;
-  border-bottom: 2px solid #1a1a1a;
+  border-bottom: 2px solid var(--header-line);
   padding: 10px 28px 12px;
+  color: var(--ink);
 }
 
 .review-page .url-label {
@@ -180,58 +204,125 @@ body.review-page {
   font-family: "Caveat", cursive;
   font-size: 2rem;
   line-height: 1;
-  color: #111;
+  color: var(--ink);
+  text-shadow: var(--copy-shadow);
 }
 
 .review-page .site-header a {
-  color: #222;
+  color: var(--ink);
   font-weight: 500;
   text-decoration: none;
   border-bottom: 1px solid transparent;
+  text-shadow: var(--copy-shadow);
 }
 
 .review-page .site-header a:hover {
-  border-bottom-color: #222;
+  border-bottom-color: var(--ink);
 }
 
 .album-stage {
   position: relative;
   z-index: 1;
-  min-height: calc(100vh - 220px);
+  height: calc(100vh - 64px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 36px 7% 180px;
+  padding: 24px 8% 170px;
+  overflow: hidden;
 }
 
 .review-page .album-view {
-  width: min(1100px, 100%);
+  width: min(780px, 100%);
   display: grid;
-  grid-template-columns: minmax(260px, 460px) minmax(240px, 1fr);
-  gap: 56px;
+  grid-template-columns: 220px minmax(220px, 1fr);
+  gap: 36px;
   align-items: center;
   background: transparent;
   padding: 0;
-  margin: 0;
+  margin: 0 0 0 max(2%, calc(18vw - 120px));
+  will-change: transform, opacity;
+}
+
+.review-page .album-view.is-leaving-next {
+  animation: leave-next 0.55s ease forwards;
+}
+
+.review-page .album-view.is-leaving-prev {
+  animation: leave-prev 0.55s ease forwards;
+}
+
+.review-page .album-view.is-entering-next {
+  animation: enter-next 0.55s ease forwards;
+}
+
+.review-page .album-view.is-entering-prev {
+  animation: enter-prev 0.55s ease forwards;
+}
+
+@keyframes leave-next {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-56px, -40px, 0);
+  }
+}
+
+@keyframes leave-prev {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(56px, 40px, 0);
+  }
+}
+
+@keyframes enter-next {
+  from {
+    opacity: 0;
+    transform: translate3d(56px, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes enter-prev {
+  from {
+    opacity: 0;
+    transform: translate3d(-56px, -40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .album-cover-link {
   display: block;
+  width: 220px;
+  max-width: 100%;
 }
 
 .album-cover-link img {
   width: 100%;
   display: block;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
 }
 
 .album-copy {
   display: grid;
-  gap: 28px;
-  color: #3a3a3a;
-  font-size: 1.12rem;
-  font-weight: 400;
+  gap: 22px;
+  color: var(--ink);
+  font-size: 1.08rem;
+  font-weight: 500;
   line-height: 1.45;
+  text-shadow: var(--copy-shadow);
 }
 
 .album-copy p {
@@ -249,6 +340,8 @@ body.review-page {
 
 .album-review {
   max-width: 34ch;
+  color: var(--ink-soft);
+  font-weight: 400;
 }
 
 .comments-dock {
@@ -257,11 +350,13 @@ body.review-page {
   bottom: 118px;
   z-index: 4;
   width: min(250px, calc(100vw - 32px));
-  border: 2px solid #222;
-  background: rgba(255, 255, 255, 0.72);
+  border: 2px solid var(--ink);
+  background: rgba(255, 255, 255, 0.78);
+  color: #222;
   padding: 10px 12px 12px;
   max-height: min(48vh, 420px);
   overflow: auto;
+  backdrop-filter: blur(8px);
 }
 
 .comments-heading {
@@ -277,6 +372,7 @@ body.review-page {
   font-family: "Caveat", cursive;
   font-size: 1.85rem;
   font-weight: 700;
+  color: #222;
 }
 
 .comments-icon {
@@ -300,7 +396,7 @@ body.review-page {
 
 .review-page input,
 .review-page textarea {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.88);
   border: 1px solid #bbb;
   color: #222;
   border-radius: 0;
@@ -335,6 +431,7 @@ body.review-page {
   font-family: "Caveat", cursive;
   font-size: 1.25rem;
   font-weight: 700;
+  color: #222;
 }
 
 .comment-item p {
@@ -355,6 +452,7 @@ body.review-page {
   grid-template-columns: auto 1fr;
   gap: 14px 16px;
   align-items: end;
+  color: var(--ink);
 }
 
 .player-now {
@@ -376,6 +474,7 @@ body.review-page {
   font-family: "Caveat", cursive;
   font-size: 1.45rem;
   line-height: 1.1;
+  text-shadow: var(--copy-shadow);
 }
 
 .player-track-wrap {
@@ -386,7 +485,7 @@ body.review-page {
 .player-track {
   position: relative;
   height: 28px;
-  border: 2px solid #222;
+  border: 2px solid var(--ink);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.55);
   cursor: pointer;
@@ -396,7 +495,8 @@ body.review-page {
   position: absolute;
   inset: 3px auto 3px 3px;
   border-radius: 999px;
-  background: #1a1a1a;
+  background: var(--ink);
+  transition: width 0.45s ease;
 }
 
 .player-knob {
@@ -409,6 +509,7 @@ body.review-page {
   border: 2px solid #111;
   transform: translate(-50%, -50%);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: left 0.45s ease;
 }
 
 .player-preview {
@@ -418,6 +519,7 @@ body.review-page {
   width: 180px;
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid #222;
+  color: #222;
   padding: 8px;
   pointer-events: none;
 }
@@ -436,7 +538,7 @@ body.review-page {
   display: block;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 760px) {
   .album-view,
   .review-page .album-view,
   .recommendations-layout {
@@ -444,7 +546,16 @@ body.review-page {
   }
 
   .album-stage {
-    padding: 24px 6% 260px;
+    padding: 24px 6% 250px;
+    align-items: flex-start;
+  }
+
+  .review-page .album-view {
+    margin: 0;
+  }
+
+  .album-cover-link {
+    width: min(200px, 58vw);
   }
 
   .player-bar {
