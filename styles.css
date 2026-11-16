@@ -136,7 +136,7 @@ body.review-page {
   --ink-soft: rgba(22, 22, 22, 0.78);
   --wash: rgba(255, 255, 255, 0.42);
   --copy-shadow: 0 1px 0 rgba(255, 255, 255, 0.55), 0 2px 18px rgba(255, 255, 255, 0.35);
-  --header-line: rgba(22, 22, 22, 0.55);
+
   color-scheme: light;
   font-family: "Outfit", Arial, sans-serif;
   color: var(--ink);
