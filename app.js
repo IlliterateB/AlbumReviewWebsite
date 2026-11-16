@@ -1,56 +1,4 @@
-const albums = [
-  {
-    id: "care-for-me",
-    rank: 1,
-    title: "Care For Me",
-    artist: "Saba",
-    cover: "./covers/care-for-me.jpg",
-    albumUrl: "https://www.deezer.com/album/614334032",
-    songs: [
-      { title: "BUSY/SIRENS", plays: 37303000, url: "https://www.deezer.com/track/2887227422" },
-      { title: "LIFE", plays: 34808100, url: "https://www.deezer.com/track/2887227442" },
-      { title: "PROM/KING", plays: 18784300, url: "https://www.deezer.com/track/2887227502" }
-    ],
-    bestSong: { title: "BUSY/SIRENS", plays: 37303000, url: "https://www.deezer.com/track/2887227422" },
-    worstSong: { title: "GREY", plays: 14113200, url: "https://www.deezer.com/track/2887227492" },
-    review:
-      "Grief, Chicago, and melody sit side by side here — it is personal without ever losing its sense of rhythm, which is why it sits at number one."
-  },
-  {
-    id: "marshall-mathers-lp",
-    rank: 2,
-    title: "The Marshall Mathers LP",
-    artist: "Eminem",
-    cover: "./covers/marshall-mathers-lp.jpg",
-    albumUrl: "https://www.deezer.com/album/125748",
-    songs: [
-      { title: "The Real Slim Shady", plays: 64060100, url: "https://www.deezer.com/track/1176202" },
-      { title: "Stan", plays: 53520800, url: "https://www.deezer.com/track/1176197" },
-      { title: "The Way I Am", plays: 44149400, url: "https://www.deezer.com/track/1176201" }
-    ],
-    bestSong: { title: "The Real Slim Shady", plays: 64060100, url: "https://www.deezer.com/track/1176202" },
-    worstSong: { title: "Ken Kaniff (Skit)", plays: 29360900, url: "https://www.deezer.com/track/1176206" },
-    review:
-      "The writing is still shocking, funny, and precise, and the sequencing keeps the whole record feeling like a character study rather than a pile of singles."
-  },
-  {
-    id: "atliens",
-    rank: 3,
-    title: "ATLiens",
-    artist: "OutKast",
-    cover: "./covers/atliens.jpg",
-    albumUrl: "https://www.deezer.com/album/113990",
-    songs: [
-      { title: "ATLiens", plays: 56319200, url: "https://www.deezer.com/track/1047823" },
-      { title: "Elevators (Me & You)", plays: 39041500, url: "https://www.deezer.com/track/1043992" },
-      { title: "Jazzy Belle", plays: 36965700, url: "https://www.deezer.com/track/1047827" }
-    ],
-    bestSong: { title: "ATLiens", plays: 56319200, url: "https://www.deezer.com/track/1047823" },
-    worstSong: { title: "E.T. (Extraterrestrial)", plays: 23598600, url: "https://www.deezer.com/track/1044002" },
-    review:
-      "Spacey drums, Atlanta slang, and two voices that never sound the same twice — it still feels like a world you can step into."
-  }
-].sort((a, b) => a.rank - b.rank);
+let albums = [];
 
 const storage = {
   get(key, fallback) {
@@ -66,14 +14,8 @@ const storage = {
   }
 };
 
-const params = new URLSearchParams(window.location.search);
-let currentIndex = Math.max(
-  0,
-  albums.findIndex((album) => album.id === (params.get("album") || albums[0].id))
-);
-if (currentIndex < 0) currentIndex = 0;
-
-let currentAlbum = albums[currentIndex];
+let currentIndex = 0;
+let currentAlbum = null;
 let isTransitioning = false;
 let activeCanvas = "a";
 let wheelLockUntil = 0;
@@ -572,6 +514,16 @@ function wireScrollNavigation() {
 }
 
 async function init() {
+  const response = await fetch("./albums.json");
+  if (!response.ok) throw new Error(`Could not load albums.json (${response.status})`);
+  const catalog = await response.json();
+  albums = catalog.filter((album) => Number.isFinite(album.rank)).sort((a, b) => a.rank - b.rank);
+
+  const params = new URLSearchParams(window.location.search);
+  currentIndex = albums.findIndex((album) => album.id === (params.get("album") || albums[0]?.id));
+  if (currentIndex < 0) currentIndex = 0;
+  currentAlbum = albums[currentIndex];
+
   const view = document.getElementById("album-view");
   view.innerHTML = albumMarkup(currentAlbum);
   await showBackground(currentAlbum, { instant: true });
@@ -584,6 +536,7 @@ async function init() {
 }
 
 window.addEventListener("resize", () => {
+  if (!currentAlbum) return;
   showBackground(currentAlbum, { instant: true });
 });
 

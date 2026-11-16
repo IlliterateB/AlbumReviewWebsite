@@ -1,35 +1,4 @@
-const albumCatalog = [
-  {
-    id: "care-for-me",
-    title: "Care For Me",
-    artist: "Saba",
-    cover: "./covers/care-for-me.jpg"
-  },
-  {
-    id: "marshall-mathers-lp",
-    title: "The Marshall Mathers LP",
-    artist: "Eminem",
-    cover: "./covers/marshall-mathers-lp.jpg"
-  },
-  {
-    id: "atliens",
-    title: "ATLiens",
-    artist: "OutKast",
-    cover: "./covers/atliens.jpg"
-  },
-  {
-    id: "to-pimp-a-butterfly",
-    title: "To Pimp a Butterfly",
-    artist: "Kendrick Lamar",
-    cover: "https://cdn-images.dzcdn.net/images/cover/a2b4e981e761aed778fbd2db34bd4d64/500x500-000000-80-0-0.jpg"
-  },
-  {
-    id: "in-rainbows",
-    title: "In Rainbows",
-    artist: "Radiohead",
-    cover: "https://cdn-images.dzcdn.net/images/cover/5105486d2cd73b48695dd3cfc1dc56d4/500x500-000000-80-0-0.jpg"
-  }
-];
+let albumCatalog = [];
 
 const storage = {
   get(key, fallback) {
@@ -146,4 +115,11 @@ document.getElementById("recommend-confirm").addEventListener("click", (event) =
   renderRecommendList();
 });
 
-renderRecommendList();
+async function init() {
+  const response = await fetch("./albums.json");
+  if (!response.ok) throw new Error(`Could not load albums.json (${response.status})`);
+  albumCatalog = await response.json();
+  renderRecommendList();
+}
+
+init();

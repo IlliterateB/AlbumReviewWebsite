@@ -1,0 +1,62 @@
+[
+  {
+    "id": "care-for-me",
+    "rank": 1,
+    "title": "Care For Me",
+    "artist": "Saba",
+    "cover": "./covers/care-for-me.jpg",
+    "albumUrl": "https://www.deezer.com/album/614334032",
+    "songs": [
+      { "title": "BUSY/SIRENS", "plays": 37303000, "url": "https://www.deezer.com/track/2887227422" },
+      { "title": "LIFE", "plays": 34808100, "url": "https://www.deezer.com/track/2887227442" },
+      { "title": "PROM/KING", "plays": 18784300, "url": "https://www.deezer.com/track/2887227502" }
+    ],
+    "bestSong": { "title": "BUSY/SIRENS", "plays": 37303000, "url": "https://www.deezer.com/track/2887227422" },
+    "worstSong": null,
+    "review": "Grief, Chicago, and melody sit side by side here — it is personal without ever losing its sense of rhythm, which is why it sits at number one."
+  },
+  {
+    "id": "marshall-mathers-lp",
+    "rank": 2,
+    "title": "The Marshall Mathers LP",
+    "artist": "Eminem",
+    "cover": "./covers/marshall-mathers-lp.jpg",
+    "albumUrl": "https://www.deezer.com/album/125748",
+    "songs": [
+      { "title": "The Real Slim Shady", "plays": 64060100, "url": "https://www.deezer.com/track/1176202" },
+      { "title": "Stan", "plays": 53520800, "url": "https://www.deezer.com/track/1176197" },
+      { "title": "The Way I Am", "plays": 44149400, "url": "https://www.deezer.com/track/1176201" }
+    ],
+    "bestSong": { "title": "The Real Slim Shady", "plays": 64060100, "url": "https://www.deezer.com/track/1176202" },
+    "worstSong": { "title": "Ken Kaniff (Skit)", "plays": 29360900, "url": "https://www.deezer.com/track/1176206" },
+    "review": "The writing is still shocking, funny, and precise, and the sequencing keeps the whole record feeling like a character study rather than a pile of singles."
+  },
+  {
+    "id": "atliens",
+    "rank": 3,
+    "title": "ATLiens",
+    "artist": "OutKast",
+    "cover": "./covers/atliens.jpg",
+    "albumUrl": "https://www.deezer.com/album/113990",
+    "songs": [
+      { "title": "ATLiens", "plays": 56319200, "url": "https://www.deezer.com/track/1047823" },
+      { "title": "Elevators (Me & You)", "plays": 39041500, "url": "https://www.deezer.com/track/1043992" },
+      { "title": "Jazzy Belle", "plays": 36965700, "url": "https://www.deezer.com/track/1047827" }
+    ],
+    "bestSong": { "title": "ATLiens", "plays": 56319200, "url": "https://www.deezer.com/track/1047823" },
+    "worstSong": { "title": "E.T. (Extraterrestrial)", "plays": 23598600, "url": "https://www.deezer.com/track/1044002" },
+    "review": "Spacey drums, Atlanta slang, and two voices that never sound the same twice — it still feels like a world you can step into."
+  },
+  {
+    "id": "to-pimp-a-butterfly",
+    "title": "To Pimp a Butterfly",
+    "artist": "Kendrick Lamar",
+    "cover": "https://cdn-images.dzcdn.net/images/cover/a2b4e981e761aed778fbd2db34bd4d64/500x500-000000-80-0-0.jpg"
+  },
+  {
+    "id": "in-rainbows",
+    "title": "In Rainbows",
+    "artist": "Radiohead",
+    "cover": "https://cdn-images.dzcdn.net/images/cover/5105486d2cd73b48695dd3cfc1dc56d4/500x500-000000-80-0-0.jpg"
+  }
+]
