@@ -529,9 +529,29 @@ async function init() {
   await showBackground(currentAlbum, { instant: true });
   renderSlider();
   renderAuthAndComments();
+  wireCommentsToggle();
   wireScrollNavigation();
   albums.forEach((album) => {
     loadCoverImage(album.cover).catch(() => {});
+  });
+}
+
+function wireCommentsToggle() {
+  const toggle = document.getElementById("comments-toggle");
+  const panel = document.getElementById("comments-panel");
+  if (!toggle || !panel) return;
+
+  toggle.addEventListener("click", () => {
+    const open = panel.hasAttribute("hidden");
+    if (open) {
+      panel.removeAttribute("hidden");
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Close comments");
+    } else {
+      panel.setAttribute("hidden", "");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open comments");
+    }
   });
 }
 

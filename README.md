@@ -8,10 +8,6 @@ A lightweight static implementation of an album review site with:
 - Right-side sign-in/comment sidebar with code verification and duplicate-comment protection.
 - Recommendations page with search, confirmation modal, one-vote-per-user-per-album enforcement, and popularity bars.
 
-## Run locally
+## Run
 
-Open `/home/runner/work/AlbumReviewWebsite/AlbumReviewWebsite/index.html` in a browser.
-
-Use the recommendations page from the header link or directly at:
-
-`/home/runner/work/AlbumReviewWebsite/AlbumReviewWebsite/recommendations.html`
+run `py -m http.server 8000` to start a local server on port 8000. Then open `http://localhost:8000` in a browser.

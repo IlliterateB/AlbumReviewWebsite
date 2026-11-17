@@ -31,8 +31,21 @@
     </main>
 
     <aside id="comments-dock" class="comments-dock">
-      <div class="comments-heading">
-        <h2>Comments</h2>
+      <div id="comments-panel" class="comments-panel" hidden>
+        <div class="comments-heading">
+          <h2>Comments</h2>
+        </div>
+        <div id="auth-area"></div>
+        <div id="comments-area"></div>
+      </div>
+      <button
+        type="button"
+        id="comments-toggle"
+        class="comments-toggle"
+        aria-expanded="false"
+        aria-controls="comments-panel"
+        aria-label="Open comments"
+      >
         <span class="comments-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="22" height="22">
             <path
@@ -43,9 +56,7 @@
             />
           </svg>
         </span>
-      </div>
-      <div id="auth-area"></div>
-      <div id="comments-area"></div>
+      </button>
     </aside>
 
     <section id="album-slider" class="player-bar" aria-label="Album rank slider"></section>
