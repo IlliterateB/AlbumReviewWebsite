@@ -136,7 +136,6 @@ body.review-page {
   --ink-soft: rgba(22, 22, 22, 0.78);
   --wash: rgba(255, 255, 255, 0.42);
   --copy-shadow: 0 1px 0 rgba(255, 255, 255, 0.55), 0 2px 18px rgba(255, 255, 255, 0.35);
-
   color-scheme: light;
   font-family: "Outfit", Arial, sans-serif;
   color: var(--ink);
@@ -201,7 +200,7 @@ body.review-page.is-light-text {
 
 .review-page .url-label {
   margin: 0;
-  font-family: "Caveat", cursive;
+  font-family: "Outfit", Arial, sans-serif;
   font-size: 2rem;
   line-height: 1;
   color: var(--ink);
@@ -227,19 +226,19 @@ body.review-page.is-light-text {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 8% 170px;
+  padding: 24px 8% 5%;
   overflow: hidden;
 }
 
 .review-page .album-view {
-  width: min(780px, 100%);
+  width: min(1000px, 100%);
   display: grid;
-  grid-template-columns: 220px minmax(220px, 1fr);
+  grid-template-columns: 300px minmax(300px, 1fr);
   gap: 36px;
-  align-items: center;
+  align-items: left;
   background: transparent;
   padding: 0;
-  margin: 0 0 0 max(2%, calc(18vw - 120px));
+  margin: 0 0 0 max(2%, calc(12vw - 150px));
   will-change: transform, opacity;
 }
 
@@ -305,7 +304,7 @@ body.review-page.is-light-text {
 
 .album-cover-link {
   display: block;
-  width: 220px;
+  width: 300px;
   max-width: 100%;
 }
 
@@ -339,7 +338,7 @@ body.review-page.is-light-text {
 }
 
 .album-review {
-  max-width: 34ch;
+  max-width: 38ch;
   color: var(--ink-soft);
   font-weight: 400;
 }
@@ -351,9 +350,10 @@ body.review-page.is-light-text {
   z-index: 4;
   width: min(250px, calc(100vw - 32px));
   border: 2px solid var(--ink);
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(203, 200, 200, 0.25);
   color: #222;
-  padding: 10px 12px 12px;
+  padding: 5px ;
+  padding-right: 1px;
   max-height: min(48vh, 420px);
   overflow: auto;
   backdrop-filter: blur(8px);
@@ -369,7 +369,7 @@ body.review-page.is-light-text {
 
 .comments-heading h2 {
   margin: 0;
-  font-family: "Caveat", cursive;
+  font-family: "Outfit", Arial, sans-serif;
   font-size: 1.85rem;
   font-weight: 700;
   color: #222;
@@ -428,7 +428,7 @@ body.review-page.is-light-text {
 
 .comment-item strong {
   display: block;
-  font-family: "Caveat", cursive;
+  font-family: "Outfit", Arial, sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: #222;
@@ -471,7 +471,7 @@ body.review-page.is-light-text {
 
 .player-now p {
   margin: 0;
-  font-family: "Caveat", cursive;
+  font-family: "Outfit", Arial, sans-serif;
   font-size: 1.45rem;
   line-height: 1.1;
   text-shadow: var(--copy-shadow);
@@ -566,7 +566,7 @@ body.review-page.is-light-text {
   }
 
   .comments-dock {
-    right: 16px;
+    right: 5px;
     bottom: 150px;
   }
 }
